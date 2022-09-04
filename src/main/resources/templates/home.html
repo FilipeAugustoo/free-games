@@ -1,1 +1,40 @@
-<h1 th:text="${jogos}"></h1>
+<html>
+  <head th:replace="~{base :: head}"></head>
+  <head>
+    <style>
+
+      .jogos {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        justify-items: center;
+
+      }
+      
+      .textos-card {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header th:replace="~{base :: header}"></header>
+
+    <main class="container">
+      <div class="jogos">
+        <div th:each="jogo : ${jogos}">
+          <div class="card" style="width: 15rem; height: 20rem; margin: 5% 0;">
+            <img th:src="${jogo.thumbnail}" class="card-img-top" alt="...">
+            <div class="card-body textos-card">
+              <h5 class="card-title" th:text="${jogo.title}"></h5>
+              <a href="#" class="btn btn-primary">Rescue!</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
+
+

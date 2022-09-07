@@ -2,7 +2,6 @@ package br.com.freegames.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -16,7 +15,7 @@ import br.com.freegames.model.ApiModel;
 @Service
 public class ServiceApi {
 
-  private ResponseEntity<List<ApiModel>> fazRequisicao() {
+  public List<ApiModel> retornaJogos() {
 
     try {
       URI uri = new URI("https://www.freetogame.com/api/games");
@@ -27,20 +26,10 @@ public class ServiceApi {
           new ParameterizedTypeReference<>() {
           });
 
-      return result;
+      return result.getBody();
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }
 
-  }
-
-  public List<ApiModel> retornaLista() {
-
-    var jogos = fazRequisicao();
-
-    List<ApiModel> listaJogos = new ArrayList<>();
-    jogos.getBody().forEach(jogo -> listaJogos.add(jogo));
-
-    return listaJogos;
   }
 }

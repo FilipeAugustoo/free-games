@@ -18,7 +18,7 @@ public class HomeController {
 
   @GetMapping("/home")
   public String home(Model model) {
-    List<ApiModel> result = serviceApi.retornaLista();
+    List<ApiModel> result = serviceApi.retornaJogos();
    
     model.addAttribute("jogos", result);
 

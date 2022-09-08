@@ -4,16 +4,17 @@
     <style>
 
       .jogos {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        justify-items: center;
-
+        padding-top: 5%;
       }
-      
-      .textos-card {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
+
+      main {
+        background-color: darkgray;
+        width: 100%;
+      }
+
+      .card-box {
+        background-color: rgb(75, 75, 75);
+        color: #fff;
       }
 
       p {
@@ -22,21 +23,49 @@
         text-overflow: ellipsis;
         white-space: nowrap;
       }
+
+      .btn {
+        color: #fff;
+      }
+
+      a {
+        margin-left: 65%;
+        border: none;
+        border-radius: 10px;
+        width: 30%;
+        height: 25%;
+      }
+
+      a:hover {
+        width: 32%;
+        height: 27%;
+        transition: 0.2s ease-in-out;
+      }
     </style>
   </head>
 
   <body>
     <header th:replace="~{base :: header}"></header>
 
-    <main class="container">
-      <div class="jogos">
+    <main>
+      <div class="jogos container">
         <div th:each="jogo : ${jogos}">
-          <div class="card" style="width: 15rem; height: 20rem; margin: 5% 0;">
-            <img th:src="${jogo.thumbnail}" class="card-img-top" alt="Imagem Do Jogo">
-            <div class="card-body textos-card">
-              <h5 class="card-title" th:text="${jogo.title}" />
-              <p th:text="${jogo.short_description}" />
-              <a href="#" class="btn btn-primary">Rescue!</a>
+          <div class="card mb-3 card-box" style="max-width: 825px">
+            <div class="row g-0">
+              <div class="col-md-4">
+                <img
+                  th:src="${jogo.thumbnail}"
+                  class="img-fluid rounded-start"
+                  alt="Foto do jogo"
+                />
+              </div>
+              <div class="col-md-8">
+                <div class="card-body" >
+                  <h5 class="card-title" th:text="${jogo.title}" />
+                  <p class="card-text" th:text="${jogo.short_description}" />
+                </div>
+                <a th:href="${jogo.game_url}" class="btn">Resgatar!</a>
+              </div>
             </div>
           </div>
         </div>
@@ -44,5 +73,3 @@
     </main>
   </body>
 </html>
-
-

@@ -2,6 +2,7 @@ package br.com.freegames.service;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.core.ParameterizedTypeReference;
@@ -31,5 +32,15 @@ public class ServiceApi {
       throw new RuntimeException(e);
     }
 
+  }
+
+  public List<ApiModel> retornaJogosReduzido() {
+    var jogosAPI = retornaJogos();
+    List<ApiModel> jogos = new ArrayList<>();
+    for(int i = 0; i < 10; i++) {
+      jogos.add(jogosAPI.get(i));
+    }
+
+    return jogos;
   }
 }

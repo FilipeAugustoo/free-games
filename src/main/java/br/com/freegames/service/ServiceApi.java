@@ -19,7 +19,7 @@ public class ServiceApi {
   public List<ApiModel> retornaJogos() {
 
     try {
-      URI uri = new URI("https://www.freetogame.com/api/games");
+      URI uri = new URI("https://www.freetogame.com/api/games?sort-by=release-date");
 
       RestTemplate restTemplate = new RestTemplate();
 

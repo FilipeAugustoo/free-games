@@ -1,15 +1,28 @@
 <html>
   <head th:replace="~{base :: head}"></head>
   <head>
-    <style>
-
-      .jogos {
-        padding-top: 5%;
+    <style>  
+      body {
+        background-color: darkgray;
       }
 
-      main {
-        background-color: darkgray;
+      .main {
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      h1 {
+        margin-top: 2%;
+      }
+
+      .jogos {
+        padding: 5% 0;
+      }
+
+      .filtrar-categorias {
+        padding: 5% 0;
       }
 
       .card-box {
@@ -28,18 +41,8 @@
         color: #fff;
       }
 
-      a {
-        margin-left: 65%;
-        border: none;
-        border-radius: 10px;
-        width: 30%;
-        height: 25%;
-      }
-
-      a:hover {
-        width: 32%;
-        height: 27%;
-        transition: 0.2s ease-in-out;
+      .lista-completa {
+        margin-bottom: 5%;
       }
     </style>
   </head>
@@ -47,8 +50,9 @@
   <body>
     <header th:replace="~{base :: header}"></header>
 
-    <main>
-      <div class="jogos container">
+    <main class="container main">
+      <h1>Últimos Lançamentos</h1>
+      <div class="jogos">
         <div th:each="jogo : ${jogos}">
           <div class="card mb-3 card-box" style="max-width: 825px">
             <div class="row g-0">
@@ -64,12 +68,13 @@
                   <h5 class="card-title" th:text="${jogo.title}" />
                   <p class="card-text" th:text="${jogo.short_description}" />
                 </div>
-                <a th:href="${jogo.game_url}" class="btn">Resgatar!</a>
+                <a class="btn" style="margin-left: 75%;" th:href="${jogo.game_url}">Resgatar!</a>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <a class="lista-completa btn">Mostrar lista completa</a>
     </main>
   </body>
 </html>

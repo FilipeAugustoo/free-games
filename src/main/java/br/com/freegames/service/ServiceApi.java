@@ -43,4 +43,22 @@ public class ServiceApi {
 
     return jogos;
   }
+
+  public List<ApiModel> restornaTodosOsJogos() {
+
+    try {
+      URI uri = new URI("https://www.freetogame.com/api/games?sort-by=release-date");
+
+      RestTemplate restTemplate = new RestTemplate();
+
+      ResponseEntity<List<ApiModel>> result = restTemplate.exchange(uri, HttpMethod.GET, null,
+          new ParameterizedTypeReference<>() {
+          });
+
+      return result.getBody();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
+    
+  }
 }

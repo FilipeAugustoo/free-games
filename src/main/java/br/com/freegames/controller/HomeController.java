@@ -30,6 +30,7 @@ public class HomeController {
   public String listaCompleta(Model model) {
     List<ApiModel> result = serviceApi.restornaTodosOsJogos();
     model.addAttribute("jogos", result);
+    
 
     return "lista-completa";
   }

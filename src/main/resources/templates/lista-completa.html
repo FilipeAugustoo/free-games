@@ -6,14 +6,36 @@
         background-color: darkgray;
       }
 
+      .container-jogos {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .container-ordenador {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+      }
+
+      .ordenador {
+        width: 25%;
+        margin-right: 2.5%;
+      }
+
+      .botao-filtrar {
+        margin-left: 2.5%;
+      }
+
       h1 {
-        font-family: 'Roboto', sans-serif;
+        font-family: "Roboto", sans-serif;
         text-align: center;
         margin-top: 2%;
       }
 
       .jogos {
         display: grid;
+        width: 100%;
         grid-template-columns: repeat(3, 1fr);
         justify-items: center;
       }
@@ -33,6 +55,7 @@
 
       .btn {
         color: #fff;
+
       }
     </style>
   </head>
@@ -42,18 +65,34 @@
 
     <main class="container">
       <h1>Lista Completa</h1>
-      <div class="jogos">
-      <div th:each="jogo : ${jogos}">
-        <div class="card jogo" style="width: 20rem; height:22rem;">
-          <img th:src="${jogo.thumbnail}" class="card-img-top" alt="Imagem do jogo">
-          <div class="card-body">
-            <h5 class="card-title" th:text="${jogo.title}"/>
-            <p class="card-text" th:text="${jogo.short_description}"/>
-            <a th:href="${jogo.game_url}" class="btn">Resgatar!</a>
+      <div class="container-jogos">
+        <div class="container-ordenador">
+          <select class="form-select ordenador" aria-label="Default select example">
+            <option selected>Filtrar Por</option>
+            <option th:value="${{mmorpg}}">mmorpg</option>
+            <option th:value="${shooter}">shooter</option>
+            <option th:value="${pvp}">pvp</option>
+            <option th:value="${mmofps}">mmofps</option>
+          </select>
+          <button class="btn botao-filtrar">Filtrar</button>
+        </div>
+        <div class="jogos">
+          <div th:each="jogo : ${jogos}">
+            <div class="card jogo" style="width: 20rem; height: 22rem">
+              <img
+                th:src="${jogo.thumbnail}"
+                class="card-img-top"
+                alt="Imagem do jogo"
+              />
+              <div class="card-body">
+                <h5 class="card-title" th:text="${jogo.title}" />
+                <p class="card-text" th:text="${jogo.short_description}" />
+                <a th:href="${jogo.game_url}" class="btn">Resgatar!</a>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
     </main>
   </body>
 </html>

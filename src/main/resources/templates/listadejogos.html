@@ -67,12 +67,13 @@
       <h1>Lista Completa</h1>
       <div class="container-jogos">
         <div class="container-ordenador">
-          <select class="form-select ordenador" aria-label="Default select example">
+          <select th:field="*{opcao}" class="form-select ordenador">
             <option selected>Filtrar Por</option>
-            <option th:value="${{mmorpg}}">mmorpg</option>
-            <option th:value="${shooter}">shooter</option>
-            <option th:value="${pvp}">pvp</option>
-            <option th:value="${mmofps}">mmofps</option>
+            <option 
+              th:each="opcao : ${opcoes}" 
+              th:value="${opcao}" 
+              th:text="${opcao}"
+            />
           </select>
           <button class="btn botao-filtrar">Filtrar</button>
         </div>

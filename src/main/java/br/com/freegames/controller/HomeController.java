@@ -23,15 +23,16 @@ public class HomeController {
     List<ApiModel> result = serviceApi.retornaJogosReduzido();
     model.addAttribute("jogos", result);
 
-    return "home";
+    return "homepage";
   }
 
   @GetMapping("/lista-completa")
   public String listaCompleta(Model model) {
-    List<ApiModel> result = serviceApi.restornaTodosOsJogos();
+    List<ApiModel> result = serviceApi.retornaJogos();
+    List<String> opcoes = serviceApi.retornaOpcoes();
     model.addAttribute("jogos", result);
-    
+    model.addAttribute("opcoes", opcoes);
 
-    return "lista-completa";
+    return "listadejogos";
   }
 }

@@ -1,5 +1,5 @@
 <html>
-  <head th:replace="~{base :: head}"></head>
+  <head th:replace="base :: head"></head>
   <head>
     <style>  
       body {
@@ -49,7 +49,7 @@
   </head>
 
   <body>
-    <header th:replace="~{base :: header}"></header>
+    <header th:replace="base :: header"></header>
 
     <main class="container main">
       <h1>Últimos Lançamentos</h1>
@@ -69,13 +69,14 @@
                   <h5 class="card-title" th:text="${jogo.title}" />
                   <p class="card-text" th:text="${jogo.short_description}" />
                 </div>
-                <a class="btn" style="margin-left: 75%;" th:href="${jogo.game_url}">Resgatar!</a>
+                <a class="btn" style="margin-left: 75%;" th:href="@{jogo.game_url}">
+                  Resgatar!</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <a class="lista-completa btn" th:href="@{/home/lista-jogos-completos}">Mostrar lista completa</a>
+      <a class="lista-completa btn" th:href="@{/home/lista-completa}">Mostrar lista completa</a>
     </main>
   </body>
 </html>

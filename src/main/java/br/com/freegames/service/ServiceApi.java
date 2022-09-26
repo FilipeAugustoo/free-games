@@ -44,13 +44,19 @@ public class ServiceApi {
     return jogos;
   }
 
-  public List<String> retornaOpcoes() {
-    List<String> opcoes = new ArrayList<String>();
-    opcoes.add("mmorpg");
-    opcoes.add("shooter");
-    opcoes.add("pvp");
-    opcoes.add("mmofps");
+  public List<ApiModel> retornaJogosFiltrados(String filtro) {
+    try {
+      URI uri = new URI("https://www.freetogame.com/api/games?category=" + filtro);
 
-    return opcoes;
+      RestTemplate restTemplate = new RestTemplate();
+
+      ResponseEntity<List<ApiModel>> result = restTemplate.exchange(uri, HttpMethod.GET, null,
+          new ParameterizedTypeReference<>() {
+          });
+
+      return result.getBody();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

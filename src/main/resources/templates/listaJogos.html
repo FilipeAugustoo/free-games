@@ -1,5 +1,5 @@
 <html>
-  <head th:replace="~{base :: head}"></head>
+  <head th:replace="base :: head"></head>
   <head>
     <style>
       body {
@@ -57,40 +57,50 @@
         color: #fff;
 
       }
+
+      .form-filtro {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-top: 2%;
+      }
     </style>
   </head>
 
   <body>
-    <header th:replace="~{base :: header}"></header>
+    <header th:replace="base :: header"></header>
 
     <main class="container">
       <h1>Lista Completa</h1>
       <div class="container-jogos">
         <div class="container-ordenador">
-          <select th:field="*{opcao}" class="form-select ordenador">
-            <option selected>Filtrar Por</option>
-            <option 
-              th:each="opcao : ${opcoes}" 
-              th:value="${opcao}" 
-              th:text="${opcao}"
-            />
-          </select>
-          <button class="btn botao-filtrar">Filtrar</button>
+          <form class="form-filtro" action="/home/lista-completa" method="POST">
+            <select name="filtro" class="form-select ordenador">
+              <option>Selecionar Filtro</option>
+              <option
+                th:each="opcao : ${opcoes}"
+                th:text="${opcao}"
+                th:value="${opcao}"
+              />
+            </select>
+            <button class="btn botao-filtrar" >Filtrar</button>
+          </form>
+          
         </div>
         <div class="jogos">
           <div th:each="jogo : ${jogos}">
-            <div class="card jogo" style="width: 20rem; height: 22rem">
-              <img
-                th:src="${jogo.thumbnail}"
-                class="card-img-top"
-                alt="Imagem do jogo"
-              />
-              <div class="card-body">
-                <h5 class="card-title" th:text="${jogo.title}" />
-                <p class="card-text" th:text="${jogo.short_description}" />
-                <a th:href="${jogo.game_url}" class="btn">Resgatar!</a>
+              <div class="card jogo" style="width: 20rem; height: 22rem">
+                <img
+                  th:src="${jogo.thumbnail}"
+                  class="card-img-top"
+                  alt="Imagem do jogo"
+                />
+                <div class="card-body">
+                  <h5 class="card-title" th:text="${jogo.title}" />
+                  <p class="card-text" th:text="${jogo.short_description}" />
+                  <a th:href="${jogo.game_url}" class="btn">Resgatar!</a>
+                </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

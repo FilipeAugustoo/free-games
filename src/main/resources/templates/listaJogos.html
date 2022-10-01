@@ -76,14 +76,14 @@
         <div class="container-ordenador">
           <form class="form-filtro" action="/home/lista-completa" method="POST">
             <select name="filtro" class="form-select ordenador">
-              <option>Selecionar Filtro</option>
               <option
                 th:each="opcao : ${opcoes}"
-                th:text="${opcao}"
-                th:value="${opcao}"
+                th:text="${opcao.filtro}"
+                th:value="${opcao.id}"
+                th:selected="${opcao.id} == ${jogoSelecionado.id}"
               />
             </select>
-            <button class="btn botao-filtrar" >Filtrar</button>
+            <button class="btn botao-filtrar">Filtrar</button>
           </form>
           
         </div>

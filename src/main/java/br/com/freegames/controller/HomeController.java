@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.freegames.model.ApiModel;
-import br.com.freegames.model.Filtro;
 import br.com.freegames.service.ServiceApi;
 
 @Controller
@@ -28,25 +27,25 @@ public class HomeController {
   }
 
   @GetMapping("/home/lista-completa")
-  public String listaCompleta(@RequestParam(value = "filtro", required = false) String filtro, Model model ) {
+  public String listaCompleta(@RequestParam(value = "filtro", required = false) Integer filtro, Model model ) {
     
-    if(filtro == null) {
+    if(filtro == null || filtro == 0) {
       List<ApiModel> result = serviceApi.retornaJogos();
       model.addAttribute("jogos", result);
-    } else if(filtro != null) {
+      model.addAttribute("jogoSelecionado", serviceApi.retornaFiltros().get(0));
+    } else if(filtro > 0) {
       List<ApiModel> result = serviceApi.retornaJogosFiltrados(filtro);
       model.addAttribute("jogos", result);
+      model.addAttribute("jogoSelecionado", serviceApi.retornaFiltros().get(filtro));
     }
-    model.addAttribute("opcoes", Filtro.values());
+    model.addAttribute("opcoes", serviceApi.retornaFiltros());
+
 
     return "listaJogos";
   }
 
   @PostMapping("/home/lista-completa")
-  public String teste(Filtro filtro, Model model) {
-    // List<ApiModel> result = serviceApi.retornaJogosFiltrados(filtro.toString().toLowerCase());
-    // model.addAttribute("jogosFiltrados", result);
-
-    return "redirect:/home/lista-completa/?filtro=" + filtro.toString().toLowerCase();
+  public String teste(Integer filtro, Model model) {
+    return "redirect:/home/lista-completa/?filtro=" + filtro;
   }
-}
+} 

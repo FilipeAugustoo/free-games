@@ -12,9 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import br.com.freegames.model.ApiModel;
+import br.com.freegames.model.Filtro;
 
 @Service
 public class ServiceApi {
+
+  
 
   public List<ApiModel> retornaJogos() {
 
@@ -44,9 +47,11 @@ public class ServiceApi {
     return jogos;
   }
 
-  public List<ApiModel> retornaJogosFiltrados(String filtro) {
+  public List<ApiModel> retornaJogosFiltrados(Integer id) {
+    Filtro filtro = retornaFiltros().get(id);
+
     try {
-      URI uri = new URI("https://www.freetogame.com/api/games?category=" + filtro);
+      URI uri = new URI("https://www.freetogame.com/api/games?category=" + filtro.getFiltro().toLowerCase());
 
       RestTemplate restTemplate = new RestTemplate();
 
@@ -58,5 +63,17 @@ public class ServiceApi {
     } catch (URISyntaxException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public List<Filtro> retornaFiltros() {
+    List<Filtro> listaFiltros = new ArrayList<Filtro>();
+
+    listaFiltros.add(new Filtro("Selecionar Filtro", 0));
+    listaFiltros.add(new Filtro("MMORPG", 1));
+    listaFiltros.add(new Filtro("MMOFPS", 2));
+    listaFiltros.add(new Filtro("PVP", 3));
+    listaFiltros.add(new Filtro("SHOOTER", 4));
+
+    return listaFiltros;
   }
 }

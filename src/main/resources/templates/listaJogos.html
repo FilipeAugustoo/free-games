@@ -16,6 +16,9 @@
         display: flex;
         width: 100%;
         justify-content: center;
+        background-color: rgb(75, 75, 75);
+        margin-top: 2%;
+        border-radius: 0.25rem;
       }
 
       .ordenador {
@@ -58,6 +61,14 @@
 
       }
 
+      .bg-color {
+        background-color: rgb(75, 75, 75);
+      }
+
+      .display-4 {
+        margin: 1% 0;
+      }
+
       .form-filtro {
         width: 100%;
         display: flex;
@@ -71,7 +82,11 @@
     <header th:replace="base :: header"></header>
 
     <main class="container">
-      <h1>Lista Completa</h1>
+      <div class="mb-0 mt-2 p-5 text-white rounded bg-color">
+        <h1 class="display-4">Lista Completa</h1>
+      </div>
+      
+
       <div class="container-jogos">
         <div class="container-ordenador">
           <form class="form-filtro" action="/home/lista-completa" method="POST">
@@ -83,9 +98,18 @@
                 th:selected="${opcao.id} == ${jogoSelecionado.id}"
               />
             </select>
+
+            <select name="filtro" class="form-select ordenador">
+              <option
+                th:each="opcao : ${opcoes}"
+                th:text="${opcao.filtro}"
+                th:value="${opcao.id}"
+                th:selected="${opcao.id} == ${jogoSelecionado.id}"
+              />
+            </select>
+
             <button class="btn botao-filtrar">Filtrar</button>
           </form>
-          
         </div>
         <div class="jogos">
           <div th:each="jogo : ${jogos}">

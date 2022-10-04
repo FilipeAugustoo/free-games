@@ -90,21 +90,21 @@
       <div class="container-jogos">
         <div class="container-ordenador">
           <form class="form-filtro" action="/home/lista-completa" method="POST">
-            <select name="filtro" class="form-select ordenador">
+            <select name="categoria" class="form-select ordenador">
               <option
-                th:each="opcao : ${opcoes}"
+                th:each="opcao : ${opcoesCat}"
                 th:text="${opcao.filtro}"
                 th:value="${opcao.id}"
-                th:selected="${opcao.id} == ${jogoSelecionado.id}"
+                th:selected="${opcao.id} == ${jogoSelecionadoCat.id}"
               />
             </select>
 
-            <select name="filtro" class="form-select ordenador">
+            <select name="plataforma" class="form-select ordenador">
               <option
-                th:each="opcao : ${opcoes}"
+                th:each="opcao : ${opcoesPla}"
                 th:text="${opcao.filtro}"
                 th:value="${opcao.id}"
-                th:selected="${opcao.id} == ${jogoSelecionado.id}"
+                th:selected="${opcao.id} == ${jogoSelecionadoPla.id}"
               />
             </select>
 

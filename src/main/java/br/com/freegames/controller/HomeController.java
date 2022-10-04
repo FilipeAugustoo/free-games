@@ -27,25 +27,42 @@ public class HomeController {
   }
 
   @GetMapping("/home/lista-completa")
-  public String listaCompleta(@RequestParam(value = "filtro", required = false) Integer filtro, Model model ) {
-    
-    if(filtro == null || filtro == 0) {
+  public String listaCompleta(
+    @RequestParam(required = false, defaultValue = "0") Integer categoria, 
+    @RequestParam(required = false, defaultValue = "0") Integer plataforma, 
+    Model model ) {
+
+    if(categoria != 0 && plataforma != 0) {
+      List<ApiModel> result = serviceApi.retornaJogosCom2Filtros(categoria, plataforma);
+      model.addAttribute("jogos", result);
+      model.addAttribute("jogoSelecionadoCat", serviceApi.retornaFiltrosCategoria().get(categoria));
+      model.addAttribute("jogoSelecionadoPla", serviceApi.retornaFiltrosPlataforma().get(plataforma));
+    } else if(categoria > 0  && plataforma == 0) {
+      List<ApiModel> result = serviceApi.retornaJogosFiltradosCat(categoria);
+      model.addAttribute("jogos", result);
+      model.addAttribute("jogoSelecionadoCat", serviceApi.retornaFiltrosCategoria().get(categoria));
+      model.addAttribute("jogoSelecionadoPla", serviceApi.retornaFiltrosPlataforma().get(0));
+    } else if(categoria == 0 && plataforma > 0) {
+      List<ApiModel> result = serviceApi.retornaJogosFiltradosPla(plataforma);
+      model.addAttribute("jogos", result);
+      model.addAttribute("jogoSelecionadoCat", serviceApi.retornaFiltrosCategoria().get(0));
+      model.addAttribute("jogoSelecionadoPla", serviceApi.retornaFiltrosPlataforma().get(plataforma));
+    } else {
       List<ApiModel> result = serviceApi.retornaJogos();
       model.addAttribute("jogos", result);
-      model.addAttribute("jogoSelecionado", serviceApi.retornaFiltros().get(0));
-    } else if(filtro > 0) {
-      List<ApiModel> result = serviceApi.retornaJogosFiltrados(filtro);
-      model.addAttribute("jogos", result);
-      model.addAttribute("jogoSelecionado", serviceApi.retornaFiltros().get(filtro));
+      model.addAttribute("jogoSelecionadoCat", serviceApi.retornaFiltrosCategoria().get(0));
+      model.addAttribute("jogoSelecionadoPla", serviceApi.retornaFiltrosPlataforma().get(0));
     }
-    model.addAttribute("opcoes", serviceApi.retornaFiltros());
-
+    
+    model.addAttribute("opcoesCat", serviceApi.retornaFiltrosCategoria());
+    model.addAttribute("opcoesPla", serviceApi.retornaFiltrosPlataforma());
 
     return "listaJogos";
   }
 
   @PostMapping("/home/lista-completa")
-  public String teste(Integer filtro, Model model) {
-    return "redirect:/home/lista-completa/?filtro=" + filtro;
+  public String teste(Integer categoria, Integer plataforma) {
+
+    return "redirect:/home/lista-completa/?categoria=" + categoria + "&plataforma=" + plataforma;
   }
 } 

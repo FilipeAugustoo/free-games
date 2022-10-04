@@ -47,8 +47,8 @@ public class ServiceApi {
     return jogos;
   }
 
-  public List<ApiModel> retornaJogosFiltrados(Integer id) {
-    Filtro filtro = retornaFiltros().get(id);
+  public List<ApiModel> retornaJogosFiltradosCat(Integer id) {
+    Filtro filtro = retornaFiltrosCategoria().get(id);
 
     try {
       URI uri = new URI("https://www.freetogame.com/api/games?category=" + filtro.getFiltro().toLowerCase());
@@ -65,7 +65,7 @@ public class ServiceApi {
     }
   }
 
-  public List<Filtro> retornaFiltros() {
+  public List<Filtro> retornaFiltrosCategoria() {
     List<Filtro> listaFiltros = new ArrayList<Filtro>();
 
     listaFiltros.add(new Filtro("Selecionar Filtro", 0));
@@ -75,5 +75,52 @@ public class ServiceApi {
     listaFiltros.add(new Filtro("SHOOTER", 4));
 
     return listaFiltros;
+  }
+
+  public List<Filtro> retornaFiltrosPlataforma() {
+    List<Filtro> listaFiltros = new ArrayList<Filtro>();
+
+    listaFiltros.add(new Filtro("Selecionar Filtro", 0));
+    listaFiltros.add(new Filtro("PC", 1));
+    listaFiltros.add(new Filtro("BROWSER", 2));
+
+    return listaFiltros;
+  }
+
+  public List<ApiModel> retornaJogosCom2Filtros(Integer categoria, Integer plataforma) {
+    Filtro filtroCategoria = retornaFiltrosCategoria().get(categoria);
+    Filtro filtroPlataforma = retornaFiltrosPlataforma().get(plataforma);
+
+    try {
+      URI uri = new URI("https://www.freetogame.com/api/games?platform=" + filtroPlataforma.getFiltro().toLowerCase() + "&category=" + filtroCategoria.getFiltro().toLowerCase());
+
+      RestTemplate restTemplate = new RestTemplate();
+
+      ResponseEntity<List<ApiModel>> result = restTemplate.exchange(uri, HttpMethod.GET, null,
+          new ParameterizedTypeReference<>() {
+          });
+
+      return result.getBody();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  public List<ApiModel> retornaJogosFiltradosPla(Integer id) {
+    Filtro filtro = retornaFiltrosPlataforma().get(id);
+
+    try {
+      URI uri = new URI("https://www.freetogame.com/api/games?platform=" + filtro.getFiltro().toLowerCase());
+
+      RestTemplate restTemplate = new RestTemplate();
+
+      ResponseEntity<List<ApiModel>> result = restTemplate.exchange(uri, HttpMethod.GET, null,
+          new ParameterizedTypeReference<>() {
+          });
+
+      return result.getBody();
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
   }
 }

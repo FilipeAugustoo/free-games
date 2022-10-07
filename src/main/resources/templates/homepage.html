@@ -31,6 +31,10 @@
         color: #fff;
       }
 
+      .bg-color {
+        background-color: rgb(75, 75, 75);
+      }
+
       p {
         max-width: 50ch;
         overflow: hidden;
@@ -45,6 +49,16 @@
       .lista-completa {
         margin-bottom: 5%;
       }
+
+      @media (max-device-width: 820px) {
+        .card-box {
+          max-width: 900px;
+        }
+
+        .lista-completa {
+          font-size: 1.5rem;
+        }
+      }
     </style>
   </head>
 
@@ -52,7 +66,9 @@
     <header th:replace="base :: header"></header>
 
     <main class="container main">
-      <h1>Últimos Lançamentos</h1>
+      <div class="mb-0 mt-2 p-5 text-white rounded bg-color">
+        <h1 class="display-4">Últimos Lançamentos</h1>
+      </div>
       <div class="jogos">
         <div th:each="jogo : ${jogos}">
           <div class="card mb-3 card-box" style="max-width: 825px">

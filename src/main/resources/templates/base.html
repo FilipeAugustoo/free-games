@@ -6,7 +6,7 @@
       integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
       crossorigin="anonymous"
     >
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" th:href="favicon.ico" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
@@ -17,19 +17,25 @@
         height: 100%;
       }
 
-      header {
+      .header {
         background-color: #000;
         height: 23%;
         display: flex;
         align-items: center;
+      }
+
+      @media (max-device-width: 820px) {
+        .header {
+          height: 15%;
+        }
       }
     </style>
     
     <title>Free Games</title>
 </head>
 
-<header th:fragment="header">
+<header class="header" th:fragment="header">
   <div class="container">
-    <img class="rounded mx-auto d-block" src="logo.png" alt="Logo do site" width="200" height="200">
+    <a th:href="@{/home}"><img class="rounded mx-auto d-block" th:src="logo.png" alt="Logo do site" width="200" height="200"></a>
   </div>
 </header>

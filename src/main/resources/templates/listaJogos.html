@@ -75,6 +75,28 @@
         justify-content: center;
         margin-top: 2%;
       }
+
+      @media (max-device-width: 820px) {
+        .jogos {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        .form-filtro {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .ordenador {
+          margin-bottom: 2%;
+          margin-right: 0;
+          width: 50%;
+          height: 30%;
+        }
+
+        .botao-filtrar {
+          font-size: 1.5rem;
+        }        
+      }
     </style>
   </head>
 
